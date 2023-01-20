@@ -1,6 +1,6 @@
 require 'simplecov'
 SimpleCov.start 'rails' 
-SimpleCov.add_filter ['config', 'channels', 'jobs', 'mailers']
+SimpleCov.add_filter ['config', 'channels', 'jobs', 'mailers', 'controllers/application_controller.rb']
 require 'spec_helper'
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -13,6 +13,13 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end
 
 RSpec.configure do |config|

@@ -8,6 +8,8 @@ description of project
 
 ## Setup:
 
+rake load:all is the command to run the rake task
+
 This is the setup:
 how to build and run your code including any dependencies.
 specify your build environment (e.g. Windows, MacOS, Linux) 

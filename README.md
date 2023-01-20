@@ -1,24 +1,14 @@
-# README
+# TimeSheets
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+description of project
 
-Things you may want to cover:
+## Schema: 
 
-* Ruby version
+<img src="./app/assets/images/schema.jpg" alt="The schema of this project has one table that includes a column for the date, client, project, project code, hours, billable, first and last name, and rate." width="200" />
 
-* System dependencies
+## Setup:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is the setup:
+how to build and run your code including any dependencies.
+specify your build environment (e.g. Windows, MacOS, Linux) 
+How to run locally

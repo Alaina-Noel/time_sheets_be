@@ -8,7 +8,6 @@ FactoryBot.define do
     billable { false }
     first_name { "MyString" }
     last_name { "MyString" }
-    string { "MyString" }
-    billable_date { 1 }
+    billable_rate { 1 }
   end
 end

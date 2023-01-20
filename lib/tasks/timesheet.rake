@@ -1,9 +1,13 @@
-namespace :json_load do
+require "csv"
+
+namespace :load do
   desc 'Read CSV File of Timesheets'
   task timesheets: :environment do
-    timesheets_data = JSON.parse(File.read('./db/data/timesheets/timesheets_2023_01_20.csv'), symbolize_names: true)
+    timesheets_data = CSV.parse(File.read('./db/data/timesheets/timesheets_2023_01_20.csv'), headers: true, header_converters: :symbol).map(&:to_h)
 
-    timesheets_data[:data].each do |entry|
+    Timesheet.destroy_all
+
+    timesheets_data.each do |entry|
       Timesheet.create!(date: entry[:date],
                     client: entry[:client],
                     project: entry[:project],
@@ -12,7 +16,7 @@ namespace :json_load do
                     billable: entry[:billable],
                     first_name: entry[:first_name],
                     last_name: entry[:last_name],
-                    billable_date: entry[:billable_date])
+                    billable_rate: entry[:billable_rate])
     end
 
     ActiveRecord::Base.connection.reset_pk_sequence!('timesheets')

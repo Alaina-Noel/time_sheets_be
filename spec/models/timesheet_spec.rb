@@ -53,6 +53,25 @@ RSpec.describe Timesheet, type: :model do
 
         expect(Timesheet.get_project_details("A1")).to eq(a1_details)
       end
+
+      it 'returns the total billable hours for a given project_code if the rate fluxuates for the same project' do
+        Timesheet.destroy_all
+
+        entry_1_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 2.75, billable: true, first_name: "POP", last_name: "TART", billable_rate: 80)
+        entry_2_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 7.75, billable: true, first_name: "POP", last_name: "TART", billable_rate: 70)
+        entry_3_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 7.75, billable: false, first_name: "POP", last_name: "TART", billable_rate: 0)
+
+        a1_details = { :id => "A1",
+                        :project_name => "Project 1 Company A",
+                        :client_name => "Company A Name",
+                        :total_hours => 18.25,
+                        :total_billable_amount => 762.5,
+                        :billable_hours => 10.5,
+                        :billable_percentage => 57.5
+                      }
+
+        expect(Timesheet.get_project_details("A1")).to eq(a1_details)
+      end
     end
   end
 

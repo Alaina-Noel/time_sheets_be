@@ -9,7 +9,6 @@ describe 'Timehseets API' do
         entry_2_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 7.75, billable: true, first_name: "POP", last_name: "TART", billable_rate: 80)
         entry_3_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 7.75, billable: false, first_name: "POP", last_name: "TART", billable_rate: 0)
 
-
         params = { timesheet: { project_code: "A1", company_name: "Company A Name", project_name: "Project A Company A", hours: 2.5, billable: true, first_name: "Alaina", last_name: "Kneiling", billable_rate: 90 } }
       
         post '/api/v1/timesheets', :params => params, :headers => headers
@@ -44,52 +43,20 @@ describe 'Timehseets API' do
       end
     end
 
-    # describe 'sad path' do
-    #   it 'sends a helpful error message if the user __________' do
-    #     get '/api/v1/timesheets'
-    #   end
-    # end
+    describe 'sad path' do
+      it 'sends an error message if the user does not include all attributes in params' do
+        params = { timesheet: { project_code: "A1", company_name: "Company A Name", project_name: "Project A Company A", billable: true, first_name: "Alaina", last_name: "Kneiling", billable_rate: 90 } }
+      
+        post '/api/v1/timesheets', :params => params, :headers => headers
 
-    # describe 'sad path' do
-    #   it 'sends a helpful error message if there is no data' do
-    #     get '/api/v1/timesheets'
-    #   end
-    # end
+        expect(response).to_not be_successful
+        expect(response.status).to eq(400)
+
+        error_response = JSON.parse(response.body, symbolize_names: true)
+
+        expect(error_response).to have_key(:error)
+        expect(error_response[:error]).to eq("Someting went wrong. Check that you have passed in all parameters in the body.")
+      end
+    end
   end
 end
-
-
-#     end
-#   end
-
-#   describe 'sad path' do
-#     it 'sends back a helpful error message if the request doesnt provide attributes' do
-
-#       headers = { "CONTENT_TYPE" => "application/json" }
-
-#       post '/api/v1/users', :params => '{ "user": { } }', :headers => headers
-  
-#       expect(response.status).to eq(400)
-
-#       user_data = JSON.parse(response.body, symbolize_names: true)
-
-#       expect(user_data).to have_key(:error)
-#       expect(user_data[:error]).to eq("You must pass in a body with user data")
-#     end
-
-#     it 'sends back a helpful error message if the user provides mismatch datatypes as attributes' do
-#       headers = { "CONTENT_TYPE" => "application/json" }
-
-#       post '/api/v1/users', :params => '{ "user": { "name":"Rebecca Daphne", "email": "Rdaph1@cliffs.com" } }', :headers => headers
-
-#       post '/api/v1/users', :params => '{ "user": { "name":"Elizabeth Daphne", "email": "Rdaph1@cliffs.com" } }', :headers => headers
-  
-#       expect(response.status).to eq(400)
-
-#       user_data = JSON.parse(response.body, symbolize_names: true)
-
-#       expect(user_data).to have_key(:error)
-#       expect(user_data[:error]).to eq('That email address has been taken.')
-#     end
-#   end
-# end

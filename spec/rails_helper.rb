@@ -1,4 +1,5 @@
 require 'simplecov'
+
 SimpleCov.start 'rails' 
 SimpleCov.add_filter ['config', 'channels', 'jobs', 'mailers', 'controllers/application_controller.rb']
 require 'spec_helper'

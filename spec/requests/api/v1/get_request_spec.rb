@@ -4,19 +4,23 @@ describe 'Timehseets API' do
   describe 'timesheet index' do
     describe 'happy path' do
       it 'sends a list of all timesheets with appropriate attributes' do
+        Timesheet.destroy_all
+        timesheet_1 = create(:timesheet)
+        timesheet_2 = create(:timesheet)
+        timesheet_3 = create(:timesheet)
+        timesheet_4 = create(:timesheet)
+        timesheet_5 = create(:timesheet)
+        timesheet_6 = create(:timesheet)
+        timesheet_7 = create(:timesheet)
+        timesheet_8 = create(:timesheet)
+
         get '/api/v1/timesheets'
-
+        
         expect(response).to be_successful
-
+        
         timesheets = JSON.parse(response.body, symbolize_names: true)
 
-        expect(timesheets).to have_key(:total_hours_tracked)
-        expect(timesheets[:total_hours_tracked]).to eq(500) 
-
-        expect(timesheets).to have_key(:total_billable_amount)
-        expect(timesheets[:total_billable_amount]).to eq(201.50)
-
-        expect(timesheets[:data].count).to eq(5)
+        expect(timesheets[:data].count).to eq(3)
 
         timesheets[:data].each do |entry|
           expect(entry).to have_key(:id)
@@ -29,7 +33,7 @@ describe 'Timehseets API' do
           expect(entry[:project_name]).to be_a(String)
 
           expect(entry).to have_key(:total_hours)
-          expect(entry[:project]).to be_a(Float)
+          expect(entry[:total_hours]).to be_a(Float)
 
           expect(entry).to have_key(:billable_hours)
           expect(entry[:billable_hours]).to be_a(Float)

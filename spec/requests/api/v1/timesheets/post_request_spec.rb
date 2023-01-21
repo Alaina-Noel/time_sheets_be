@@ -55,7 +55,7 @@ describe 'Timehseets API' do
         error_response = JSON.parse(response.body, symbolize_names: true)
 
         expect(error_response).to have_key(:error)
-        expect(error_response[:error]).to eq("Someting went wrong. Check that you have passed in all parameters in the body.")
+        expect(error_response[:error]).to eq("Something went wrong. Check that you have passed in all parameters in the body.")
       end
     end
   end

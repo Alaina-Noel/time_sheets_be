@@ -6,7 +6,7 @@ FactoryBot.define do
     project { ["Project A", "Project B", "Project C"].sample }
     project_code { "MyString" }
     hours { Faker::Number.between(from: 0.0, to: 8.0).round(2) }
-    billable { true }
+    billable { [true, false].sample }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     billable_rate { Faker::Number.between(from: 1, to: 300) }

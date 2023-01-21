@@ -6,10 +6,8 @@ RSpec.describe Timesheet, type: :model do
     it { should validate_presence_of(:project) }
     it { should validate_presence_of(:project_code) }
     it { should validate_presence_of(:hours) }
-    it { should validate_presence_of(:billable) }
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:billable_rate) }
   end
 end
-

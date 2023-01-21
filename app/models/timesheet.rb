@@ -9,12 +9,15 @@ class Timesheet < ApplicationRecord
   def self.get_project_details(project_code)
     details = self.where(project_code: project_code)
     project_details = Hash.new(0.0)
+    project_details[:id] = details.first.project_code
     project_details[:project_name] = details.first.project
     project_details[:client_name] = details.first.client
     project_details[:total_hours] = details.sum {|entry| entry[:hours]}
+    project_details[:total_billable_amount] = 0.0
     details.each do |entry|
       project_details[:total_billable_amount] += entry.billable_rate * entry.hours if entry.billable
     end
+    project_details[:billable_hours] = 0.0
     details.each  do |entry|
       project_details[:billable_hours] += entry[:hours] if entry.billable
     end

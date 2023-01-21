@@ -3,27 +3,38 @@ class Timesheet < ApplicationRecord
   validates :billable, inclusion: { in: [ true, false ] }
 
   def self.group_by_project
-    require 'pry' ; binding.pry
-    select(:id, :project_code, :client, :hours, :billable_rate, :project, :billable).group(:id, :project_code)
+    pluck(:project_code).uniq
   end
 
-  def self.total_hours(client, project_code)
-    require 'pry' ; binding.pry
-    where(client: client).select(:project_code).group(:project_code).sum(:hours)
+  def self.get_client_name(project_code)
+    where(project_code: project_code).first.client
   end
 
-  def self.total_billable_hours(client, project)
-    where(client: client, project: project, billable: true).sum(:hours)
+  def self.get_project_name(project_code)
+    where(project_code: project_code).first.project
   end
 
-  def self.billable_percentage(client, project)
-    billable_hours = total_billable_hours(client, project)
-    total_hours = total_hours(client, project)
+  def self.total_hours(project_code)
+    select(:project_code).sum(:hours)
+  end
+
+  def self.total_billable_hours(project_code)
+    where(project_code: project_code, billable: true).sum(:hours)
+  end
+
+  def self.billable_percentage(project_code)
+    billable_hours = total_billable_hours(project_code)
+    total_hours = total_hours(project_code)
     billable_hours / total_hours.to_f * 100
   end
 
-  def self.calculate_billable_amount(client, project, rate)
-    billable_hours = total_billable_hours(client, project)
+  def self.calculate_billable_amount(project_code)
+    billable_hours = total_billable_hours(project_code)
+    if self.where(project_code: project_code, billable: true).first.billable_rate.nil?
+      rate = 0
+    else
+      rate = self.where(project_code: project_code, billable: true).first.billable_rate
+    end
     billable_hours * rate
   end
 end

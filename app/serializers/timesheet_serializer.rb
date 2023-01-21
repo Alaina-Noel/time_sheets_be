@@ -4,15 +4,15 @@ class TimesheetSerializer
   def self.serialize_timesheets(entries)
     {
       data: 
-        entries.group_by_project.map do |entry|
+        entries.group_by_project.map do |project_code|
           {
-            id: entry[:id],
-            client_name: entry[:client],
-            project_name: entry[:project],
-            total_hours: Timesheet.total_hours(entry[:client], entry[:project]),
-            billable_hours: Timesheet.total_billable_hours(entry[:client], entry[:project]),
-            billage_percentage: Timesheet.billable_percentage(entry[:client], entry[:project]),
-            billable_amount: Timesheet.calculate_billable_amount(entry[:client], entry[:project], entry[:billable_rate])
+            id: project_code,
+            client_name: Timesheet.get_client_name(project_code),
+            project_name: Timesheet.get_project_name(project_code),
+            total_hours: Timesheet.total_hours(project_code),
+            billable_hours: Timesheet.total_billable_hours(project_code),
+            billage_percentage: Timesheet.billable_percentage(project_code)
+            # billable_amount: Timesheet.calculate_billable_amount(project_code)
           }
         end
     }

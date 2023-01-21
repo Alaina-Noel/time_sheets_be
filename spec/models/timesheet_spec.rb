@@ -10,4 +10,17 @@ RSpec.describe Timesheet, type: :model do
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:billable_rate) }
   end
+
+  before(:each) do
+    @instance_var = Something.create!(input)
+  end
+
+  describe 'class methods' do
+    describe '#search' do
+      it 'returns partial matches' do
+       #method goes here
+      end
+    end
+  end
+
 end

@@ -3,8 +3,8 @@ FactoryBot.define do
   factory :timesheet do
     date { "2023-01-20" }
     client { ["Company A", "Company B"].sample }
-    project { ["Project A", "Project B", "Project C"].sample }
-    project_code { "MyString" }
+    project { "Project Name" }
+    project_code { ["Project A Code", "Project B Code", "Project C Code"].sample }
     hours { Faker::Number.between(from: 0.0, to: 8.0).round(2) }
     billable { [true, false].sample }
     first_name { Faker::Name.first_name }

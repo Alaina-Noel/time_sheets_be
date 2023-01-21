@@ -8,7 +8,7 @@ class Timesheet < ApplicationRecord
 
   def self.get_project_details(project_code)
     details = self.where(project_code: project_code)
-    project_details = Hash.new(0.0)
+    project_details = Hash.new
     project_details[:id] = details.first.project_code
     project_details[:project_name] = details.first.project
     project_details[:client_name] = details.first.client

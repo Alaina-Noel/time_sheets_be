@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Timehseets API' do
   describe 'timesheet index' do
     describe 'happy path' do
-      xit 'sends a list of all timesheets with appropriate attributes' do
+      it 'sends a list of all timesheets with appropriate attributes' do
         Timesheet.destroy_all
         entry_1_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 2.75, billable: true, first_name: "POP", last_name: "TART", billable_rate: 80)
         entry_2_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 7.75, billable: true, first_name: "POP", last_name: "TART", billable_rate: 80)

@@ -6,16 +6,13 @@ class Timesheet < ApplicationRecord
     pluck(:project_code).uniq
   end
 
-  def self.get_client_name(project_code)
-    where(project_code: project_code).first.client
-  end
-
-  def self.get_project_name(project_code)
-    where(project_code: project_code).first.project
-  end
-
-  def self.total_hours(project_code)
-    select(:project_code).sum(:hours)
+  def self.get_project_details(project_code)
+    details = self.where(project_code: project_code)
+    project_details = Hash.new
+    project_details[:project_name] = details.first.client
+    project_details[:client_name] = details.first.client
+    project_details[:total_hours] = details.sum {|entry| entry[:hours]}
+    return project_details
   end
 
   def self.total_billable_hours(project_code)

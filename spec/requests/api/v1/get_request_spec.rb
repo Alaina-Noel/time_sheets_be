@@ -37,11 +37,11 @@ describe 'Timehseets API' do
           expect(entry).to have_key(:billable_hours)
           expect(entry[:billable_hours]).to be_a(Float)
 
-          expect(entry).to have_key(:billage_percentage)
-          expect(entry[:billage_percentage]).to be_a(Float)
+          expect(entry).to have_key(:billable_percentage)
+          expect(entry[:billable_percentage]).to be_a(Float)
 
-          # expect(entry).to have_key(:billable_amount)
-          # expect(entry[:billable_amount]).to be_a(Float)
+          expect(entry).to have_key(:total_billable_amount)
+          expect(entry[:total_billable_amount]).to be_a(Float)
 
           expect(entry.keys.count).to eq(7)
          end

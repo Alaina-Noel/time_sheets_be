@@ -8,30 +8,17 @@ class Timesheet < ApplicationRecord
 
   def self.get_project_details(project_code)
     details = self.where(project_code: project_code)
-    project_details = Hash.new
-    project_details[:project_name] = details.first.client
+    project_details = Hash.new(0.0)
+    project_details[:project_name] = details.first.project
     project_details[:client_name] = details.first.client
     project_details[:total_hours] = details.sum {|entry| entry[:hours]}
-    return project_details
-  end
-
-  def self.total_billable_hours(project_code)
-    where(project_code: project_code, billable: true).sum(:hours)
-  end
-
-  def self.billable_percentage(project_code)
-    billable_hours = total_billable_hours(project_code)
-    total_hours = total_hours(project_code)
-    billable_hours / total_hours.to_f * 100
-  end
-
-  def self.calculate_billable_amount(project_code)
-    billable_hours = total_billable_hours(project_code)
-    if self.where(project_code: project_code, billable: true).first.billable_rate.nil?
-      rate = 0
-    else
-      rate = self.where(project_code: project_code, billable: true).first.billable_rate
+    details.each do |entry|
+      project_details[:total_billable_amount] += entry.billable_rate * entry.hours if entry.billable
     end
-    billable_hours * rate
+    details.each  do |entry|
+      project_details[:billable_hours] += entry[:hours] if entry.billable
+    end
+    project_details[:billable_percentage] = (project_details[:billable_hours] / project_details[:total_hours] * 100).round(1)
+    return project_details
   end
 end

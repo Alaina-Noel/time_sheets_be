@@ -12,15 +12,9 @@ class Timesheet < ApplicationRecord
     project_details[:id] = details.first.project_code
     project_details[:project_name] = details.first.project
     project_details[:client_name] = details.first.client
-    project_details[:total_hours] = details.sum {|entry| entry[:hours]}
-    project_details[:total_billable_amount] = 0.0
-    details.each do |entry|
-      project_details[:total_billable_amount] += entry.billable_rate * entry.hours if entry.billable
-    end
-    project_details[:billable_hours] = 0.0
-    details.each  do |entry|
-      project_details[:billable_hours] += entry[:hours] if entry.billable
-    end
+    project_details[:total_hours] = details.select(:hours).reduce(0.0) {|sum, entry| sum + entry[:hours]}
+    project_details[:total_billable_amount] = details.where(billable: true).select(:billable_rate, :hours).reduce(0.0) {|sum, entry| sum + entry.billable_rate * entry.hours }
+    project_details[:billable_hours] = details.where(billable: true).select(:hours).reduce(0.0) {|sum, entry| sum + entry.hours }
     project_details[:billable_percentage] = (project_details[:billable_hours] / project_details[:total_hours] * 100).round(1)
     return project_details
   end

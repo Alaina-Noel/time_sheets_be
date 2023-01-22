@@ -3,7 +3,8 @@ require "csv"
 namespace :load do
   desc 'Read CSV File of Timesheets'
   task timesheets: :environment do
-    timesheets_data = CSV.parse(File.read('./db/data/timesheets/timesheets_2023_01_20.csv'), headers: true, header_converters: :symbol).map(&:to_h)
+    file_path = './db/data/timesheets/timesheets_2023_01_20.csv'
+    timesheets_data = CSV.parse(File.read(file_path), headers: true, header_converters: :symbol).map(&:to_h)
 
     Timesheet.destroy_all
     

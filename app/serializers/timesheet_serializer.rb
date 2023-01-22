@@ -1,6 +1,5 @@
 class TimesheetSerializer
-  include JSONAPI::Serializer
-  attributes :id, :client_name, :project_name, :billable_hours, :billable_rate  
+
   def self.serialize_timesheets(entries)
     {
       data: 

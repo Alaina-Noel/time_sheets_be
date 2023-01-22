@@ -16,11 +16,11 @@ class Timesheet < ApplicationRecord
 
   def self.get_project_details(project_code)
     timesheets = self.where(project_code: project_code)
-    project_details = build_project_details(timesheets)
-    return project_details
+    return build_project_details(timesheets)
   end
 
   private 
+  
   def self.build_project_details(timesheets)
     project_details = {
       id: timesheets.first.project_code,
@@ -34,15 +34,15 @@ class Timesheet < ApplicationRecord
   end
 
   def self.total_hours(timesheets)
-    timesheets.select(:hours).reduce(0.0) {|sum, entry| sum + entry[:hours]}
+    timesheets.select(:hours).sum {|entry| entry[:hours]}.to_f
   end
 
   def self.total_billable_amount(timesheets)
-    timesheets.where(billable: true).select(:billable_rate, :hours).reduce(0.0) {|sum, entry| sum + entry.billable_rate * entry.hours }
+    timesheets.where(billable: true).select(:billable_rate, :hours).sum {|entry| entry.billable_rate * entry.hours }.to_f
   end
 
   def self.billable_hours(timesheets)
-    timesheets.where(billable: true).select(:hours).reduce(0.0) {|sum, entry| sum + entry.hours }
+    timesheets.where(billable: true).select(:hours).sum {|entry| entry.hours }.to_f
   end
 
   def self.billable_percentage(timesheets)

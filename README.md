@@ -6,11 +6,18 @@
 
 This is a full-stack web application that uses [React](https://reactjs.org/) (version 8.3.1) for the frontend and [Rails](https://rubyonrails.org/) (version 5.2.8.1) for the backend.
 
+
 ## Getting Started
 
 These instructions assume  you are using MacOS as your build environment and that you have basic understanding of using the terminal. <br> If you don't, email me at [alaina.noel.8@gmail.com](alaina.noel.8@gmail.com) and I'll walk you through it. 
 
-To get started, you'll need to fork and clone both repositories.
+You will need both node and react installed. <br>
+
+To check that you have node installed run ```node -v``` in your terminal. If nothing is there, [install node](https://nodejs.org/en/download/).
+
+To check that you have react installed run ```npm -v``` in your terminal. If nothing is there, install react with the command ```npm install```.
+
+Now you'll need to fork and clone both repositories.
 
 1. Fork & Clone the frontend repository by clicking the "Fork" button at the top right of [this page](https://github.com/Alaina-Noel/time_sheets_fe).<br> Click Create Fork. And then run the following command in your terminal:
 
@@ -41,7 +48,7 @@ rails db:{create,migrate}
 rake load:all
 ```
 ```
-rails -p 5000
+rails s -p 5000
 ```
 1. In a second tab in your terminal, without closing the first, cd into the frontend app and run
 ```

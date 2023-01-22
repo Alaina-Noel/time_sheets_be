@@ -41,7 +41,8 @@ RSpec.describe Timesheet, type: :model do
         entry_2_company_b_project_b1 = Timesheet.create!(date: "2023-01-20", client: "Company B Name", project: "Project 1 Company B", project_code:"B1", hours: 6.5, billable: true, first_name: "POP", last_name: "TART", billable_rate: 100)
         entry_3_company_b_project_b1 = Timesheet.create!(date: "2023-01-20", client: "Company B Name", project: "Project 1 Company B", project_code:"B1", hours: 6.5, billable: true, first_name: "POP", last_name: "TART", billable_rate: 100)
 
-        a1_details = { :id => "A1",
+        a1_details = { 
+                        :id => "A1",
                         :project_name => "Project 1 Company A",
                         :client_name => "Company A Name",
                         :total_hours => 18.25,

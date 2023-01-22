@@ -18,8 +18,6 @@ You will need Ruby, Rails, Node, Rbenv, and React installed. <br>
 
 To check that you have Node installed run ```node -v``` in your terminal. If nothing is there, [install Node](https://nodejs.org/en/download/).
 
-run ```npm install```
-
 To check that you have Ruby installed run ```ruby -v``` in your terminal. If nothing is there, install Ruby [by following these directions](https://www.ruby-lang.org/en/documentation/installation/).
 
 To check that you have Rails installed run ```rails -v``` in your terminal. If nothing is there, install Rails [by following these directions](https://rubyonrails.org/)
@@ -60,6 +58,9 @@ rake load:all
 rails s -p 5000
 ```
 1. In a second tab in your terminal, without closing the first, cd into the frontend app and run
+```
+npm install
+```
 ```
 npm start
 ```

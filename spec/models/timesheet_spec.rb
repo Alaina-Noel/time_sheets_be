@@ -12,7 +12,7 @@ RSpec.describe Timesheet, type: :model do
   end
 
   describe 'class methods' do
-    describe '#group_by_project' do
+    describe '#get_project_ids' do
       it 'returns the ids of every unique project' do
         Timesheet.destroy_all
 
@@ -24,7 +24,7 @@ RSpec.describe Timesheet, type: :model do
         entry_2_company_b_project_b1 = Timesheet.create!(date: "2023-01-20", client: "Company B Name", project: "Project 1 Company B", project_code:"B1", hours: 6.5, billable: true, first_name: "POP", last_name: "TART", billable_rate: 100)
         entry_3_company_b_project_b1 = Timesheet.create!(date: "2023-01-20", client: "Company B Name", project: "Project 1 Company B", project_code:"B1", hours: 6.5, billable: true, first_name: "POP", last_name: "TART", billable_rate: 100)
 
-        expect(Timesheet.group_by_project).to eq(["A1", "A2", "B1"])
+        expect(Timesheet.get_project_ids).to eq(["A1", "A2", "B1"])
       end
     end
 

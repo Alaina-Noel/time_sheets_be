@@ -10,7 +10,7 @@ class Timesheet < ApplicationRecord
             presence: true
   validates :billable, inclusion: { in: [ true, false ] }
 
-  def self.group_by_project
+  def self.get_project_ids
     pluck(:project_code).uniq
   end
 

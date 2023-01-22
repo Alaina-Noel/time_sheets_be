@@ -5,6 +5,7 @@ describe 'Timehseets API' do
     describe 'happy path' do
       it 'sends a list of all timesheets with appropriate attributes' do
         Timesheet.destroy_all
+
         entry_1_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 2.75, billable: true, first_name: "POP", last_name: "TART", billable_rate: 80)
         entry_2_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 7.75, billable: true, first_name: "POP", last_name: "TART", billable_rate: 80)
         entry_3_company_a_project_a1 = Timesheet.create!(date: "2023-01-20", client: "Company A Name", project: "Project 1 Company A", project_code:"A1", hours: 7.75, billable: false, first_name: "POP", last_name: "TART", billable_rate: 0)
@@ -48,16 +49,19 @@ describe 'Timehseets API' do
       end
     end
 
-    # describe 'sad path' do
-    #   it 'sends a helpful error message if the user __________' do
-    #     get '/api/v1/timesheets'
-    #   end
-    # end
+    describe 'edge case' do
+      it 'sends an empty response if there is no data to retrieve' do
+        Timesheet.destroy_all
 
-    # describe 'sad path' do
-    #   it 'sends a helpful error message if there is no data' do
-    #     get '/api/v1/timesheets'
-    #   end
-    # end
+        get '/api/v1/timesheets'
+
+        expect(response).to be_successful
+        
+        timesheets = JSON.parse(response.body, symbolize_names: true)
+
+        expect(timesheets[:data].count).to eq(0)
+        expect(timesheets[:data]).to eq([])
+      end
+    end
   end
 end

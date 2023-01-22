@@ -44,7 +44,7 @@ describe 'Timehseets API' do
     end
 
     describe 'sad path' do
-      it 'sends an error message if the user does not include all attributes in params' do
+      it 'sends a helpful error message if the user does not include hours in params' do
         params = { timesheet: { project_code: "A1", company_name: "Company A Name", project_name: "Project A Company A", billable: true, first_name: "Alaina", last_name: "Kneiling", billable_rate: 90 } }
       
         post '/api/v1/timesheets', :params => params, :headers => headers
@@ -54,8 +54,24 @@ describe 'Timehseets API' do
 
         error_response = JSON.parse(response.body, symbolize_names: true)
 
-        expect(error_response).to have_key(:error)
-        expect(error_response[:error]).to eq("Something went wrong. Check that you have passed in all parameters in the body.")
+        expect(error_response).to have_key(:errors)
+        expect(error_response[:errors]).to have_key(:hours)
+        expect(error_response[:errors][:hours]).to eq(["can't be blank"])
+      end
+
+      it 'sends a different helpful error message if the user does not include name in params' do
+        params = { timesheet: { project_code: "A1", company_name: "Company A Name", project_name: "Project A Company A", hours: 10, billable: true, last_name: "Kneiling", billable_rate: 90 } }
+      
+        post '/api/v1/timesheets', :params => params, :headers => headers
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(400)
+
+        error_response = JSON.parse(response.body, symbolize_names: true)
+
+        expect(error_response).to have_key(:errors)
+        expect(error_response[:errors]).to have_key(:first_name)
+        expect(error_response[:errors][:first_name]).to eq(["can't be blank"])
       end
     end
   end

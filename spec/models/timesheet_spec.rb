@@ -12,7 +12,6 @@ RSpec.describe Timesheet, type: :model do
   end
 
   describe 'class methods' do
-
     describe '#group_by_project' do
       it 'returns the ids of every unique project' do
         Timesheet.destroy_all
@@ -93,5 +92,4 @@ RSpec.describe Timesheet, type: :model do
       end
     end
   end
-
 end

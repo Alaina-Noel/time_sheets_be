@@ -6,29 +6,38 @@
 
 This is a full-stack web application that uses [React](https://reactjs.org/) (version 8.3.1) for the frontend and [Rails](https://rubyonrails.org/) (version 5.2.8.1) for the backend.
 
+# Welcome to TimeSheets
+
+This is a full-stack web application that uses [React](https://reactjs.org/) (version 8.3.1) for the frontend and [Rails](https://rubyonrails.org/) (version 5.2.8.1) for the backend. 
 
 ## Getting Started
 
-These instructions assume  you are using MacOS as your build environment and that you have basic understanding of using the terminal. <br> If you don't, email me at [alaina.noel.8@gmail.com](alaina.noel.8@gmail.com) and I'll walk you through it. 
+These instructions assume  you are using MacOS Monterey as your build environment and that you have basic understanding of using the terminal. <br> If you don't, email me at [alaina.noel.8@gmail.com](alaina.noel.8@gmail.com) and I'll walk you through it. 
 
-You will need both node and react installed. <br>
+You will need Ruby, Rails, Node, Rbenv, and React installed. <br>
 
-To check that you have node installed run ```node -v``` in your terminal. If nothing is there, [install node](https://nodejs.org/en/download/).
+To check that you have Node installed run ```node -v``` in your terminal. If nothing is there, [install Node](https://nodejs.org/en/download/).
 
-To check that you have react installed run ```npm -v``` in your terminal. If nothing is there, install react with the command ```npm install```.
+run ```npm install```
 
-Now you'll need to fork and clone both repositories.
+To check that you have Ruby installed run ```ruby -v``` in your terminal. If nothing is there, install Ruby [by following these directions](https://www.ruby-lang.org/en/documentation/installation/).
 
-1. Fork & Clone the frontend repository by clicking the "Fork" button at the top right of [this page](https://github.com/Alaina-Noel/time_sheets_fe).<br> Click Create Fork. And then run the following command in your terminal:
+To check that you have Rails installed run ```rails -v``` in your terminal. If nothing is there, install Rails [by following these directions](https://rubyonrails.org/)
+
+To download rbenv [follow the instructions here](https://github.com/rbenv/rbenv#installation)
+
+Now you'll need to clone both repositories.
+
+1. Clone the frontend repository with this command:
 
 ```
-git clone git@github.com:YOUR-USERNAME/time_sheets_fe.git
+git clone git@github.com:Alaina-Noel/time_sheets_fe.git
 ```
 
-1. Fork & Clone the backend repository by clicking the "Fork" button at the top right of [this page](https://github.com/Alaina-Noel/time_sheets_be). Click Create Form. And then run the following command in your terminal:
+1. Clone the backend repository with this command:
 
 ```
-git clone git@github.com:YOUR-USERNAME/time_sheets_be.git
+git clone git@github.com:Alaina-Noel/time_sheets_be.git
 ```
 
 Now you'll need to run both servers at the same time.
@@ -59,6 +68,9 @@ A browser should pop up where you can view the data that already exists in the d
 If a browser doesn't pop up, Once both servers are running, you can access the application by visiting [http://localhost:3000](http://localhost:3000).
 
 Note: backend runs on port 5000 and frontend on 3000
+
+
+[Link to the Frontend Repo](https://github.com/Alaina-Noel/time_sheets_fe)
 
 # Available Endpoints
 

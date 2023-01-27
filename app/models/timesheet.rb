@@ -34,15 +34,15 @@ class Timesheet < ApplicationRecord
   end
 
   def self.total_hours(timesheets)
-    timesheets.select(:hours).sum {|entry| entry[:hours]}.to_f
+    timesheets.sum("hours")
   end
 
   def self.total_billable_amount(timesheets)
-    timesheets.where(billable: true).select(:billable_rate, :hours).sum {|entry| entry.billable_rate * entry.hours }.to_f
+    timesheets.where('timesheets.billable = true').sum('timesheets.billable_rate * timesheets.hours')
   end
 
   def self.billable_hours(timesheets)
-    timesheets.where(billable: true).select(:hours).sum {|entry| entry.hours }.to_f
+    timesheets.where(billable: true).sum(:hours)
   end
 
   def self.billable_percentage(timesheets)
